@@ -32,16 +32,50 @@ console.log(this.photos);
 
 <template>
   <h1>photos</h1>
+  
+  <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary" type="button">Search</button>
+  </div>
+  <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
+</div>
+
  <section class="posts py-5" v-if="photos">
+  
 
 <div class="container">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
     <div class="col" v-for="photo in photos">
       <div class="card">
-        <div class="card-body">
-              {{ photo.title }}
-        </div>
-      </div>
+
+<template v-if="photo.image && photo.image.startsWith('https://')" >
+  <img class="card-img-top" :src="photo.image" alt="Photo image">  
+</template>
+<template v-else-if="photo.image && photo.image.startsWith('uploads')">
+  <img class="card-img-top" :src="base_api_url+'storage/'+ photo.image" alt="Photo image">  
+</template>
+
+
+<div class="card-body">
+    <h5 class="card-title">{{photo.title}}</h5>
+    <p class="card-text">{{photo.description}}</p>
+    <a href="#" class="btn btn-primary">View single photo</a>
+  </div>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
   </div>
 </div>
