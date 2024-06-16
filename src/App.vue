@@ -7,38 +7,59 @@ export default{
     return{
       base_api_url: 'http://127.0.0.1:8000/',
       photos_endpoint: 'api/photos',
-      photos: null,
+      categories_endpoint: 'api/categories',
+      photos: '',
+      categories: '',
+      filter_category: ''
     }
  },
- mounted(){
-const photos_url = this.base_api_url+this.photos_endpoint
 
+methods: {
+call_api_photos(url){
 axios
-.get(photos_url)
+.get(url)
 .then(response =>{
-console.log(response);
-this.photos=response.data.results.data
+this.photos = response.data.results.data
 console.log(this.photos);
-}
-)
+})
 .catch(err =>{
   console.error(err)
 })
-
- }
+},
+call_api_categories(url){
+  axios
+.get(url)
+.then(response =>{
+this.categories = response.data.results
+console.log(this.categories);
+})
+.catch(err =>{
+  console.error(err)
+})
+}
+} ,
+mounted(){
+const photos_url = this.base_api_url+this.photos_endpoint
+const categories_url = this.base_api_url+this.categories_endpoint
+this.call_api_photos(photos_url)
+this.call_api_categories(categories_url)
+}
 
 }
 </script>
 
 <template>
   <h1>photos</h1>
-  
-  <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <button class="btn btn-outline-secondary" type="button">Search</button>
-  </div>
-  <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
-</div>
+
+ 
+
+    <select class="form-select" aria-label="Default select example" >  
+  <option v-for="category in categories" value="1">{{category.name}}</option> 
+  <option selected>No categry selected</option>
+</select>
+
+
+
 
  <section class="posts py-5" v-if="photos">
   
@@ -60,20 +81,9 @@ console.log(this.photos);
     <h5 class="card-title">{{photo.title}}</h5>
     <p class="card-text">{{photo.description}}</p>
     <a href="#" class="btn btn-primary">View single photo</a>
-  </div>
-  
 </div>
-
-
-
-
-
-
-
-
-
-
-
+  
+      </div>
 
 
     </div>
