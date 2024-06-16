@@ -9,6 +9,7 @@ export const state = reactive({
     categories: '',
     filter_category: '',
     chekced_evidence: 0,
+    loading: true,
 
     call_api_photos(url) {
         axios
@@ -21,6 +22,7 @@ export const state = reactive({
             .catch(err => {
                 console.error(err)
             })
+        this.loading = false
     },
     call_api_categories(url) {
         axios

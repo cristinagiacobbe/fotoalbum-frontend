@@ -1,9 +1,13 @@
 <script >
 import axios from 'axios';
 import { state } from './state.js'
+import Loader from './components/Loader.vue';
 
 export default{
   name: 'App',
+  components: {
+    Loader
+  },
 
 data() {
         return {
@@ -15,7 +19,10 @@ data() {
 mounted(){
 const photos_url = state.base_api_url+state.photos_endpoint
 const categories_url = state.base_api_url+state.categories_endpoint
-state.call_api_photos(photos_url)
+
+setTimeout(() => {
+  state.call_api_photos(photos_url)
+        }, 3000)
 state.call_api_categories(categories_url)
 }
 
@@ -24,6 +31,11 @@ state.call_api_categories(categories_url)
 
 <template>
   <h1>Share your fotoalbum</h1>
+
+  <div class="m-4" v-if="state.loading">
+    <Loader></Loader>
+</div>
+
 
 <div class="container d-flex">
 <form @submit.prevent="state.search_category()">
@@ -43,6 +55,7 @@ state.call_api_categories(categories_url)
 
 <button type="submit" class="btn btn-outline-primary" >Search</button>
 </form>
+
 
 </div>
 
