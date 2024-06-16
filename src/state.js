@@ -8,7 +8,7 @@ export const state = reactive({
     photos: '',
     categories: '',
     filter_category: '',
-    chekced_evidence: 0,
+    cheked_evidence: false,
     loading: true,
 
     call_api_photos(url) {
@@ -35,15 +35,24 @@ export const state = reactive({
                 console.error(err)
             })
     },
-    search_category() {
+    filter() {
         const photos_url = this.base_api_url + this.photos_endpoint
-        const photos_filtered_categories_url = this.base_api_url + this.photos_endpoint + `?search=` + this.filter_category + `?search=` + this.se
-        if (this.filter_category == "No category selected") {
+        const photos_filtered_url = this.base_api_url + this.photos_endpoint + `?search=` + this.filter_category + `?search=` + this.checked_evidence
+        if (this.filter_category == "No category selected" && this.check_evidence == false) {
             this.call_api_photos(photos_url)
         } else {
-            this.call_api_photos(photos_filtered_categories_url)
+            this.call_api_photos(photos_filtered_url)
         }
-        console.log(photos_filtered_categories_url);
+        console.log(photos_filtered_url);
+    },
+    check_evidence() {
+        const photos_url = this.base_api_url + this.photos_endpoint
+        const photos_checked_evidence_url = this.base_api_url + this.photos_endpoint + `?search=` + this.checked_evidence
+        if (this.check_evidence = 0) {
+            this.call_api_photos(photos_checked_evidence_url)
+        } else {
+            this.call_api_photos(photos_url)
+        }
+        console.log(photos_checked_evidence_url);
     }
-
 })

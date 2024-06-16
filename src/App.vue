@@ -38,7 +38,7 @@ state.call_api_categories(categories_url)
 
 
 <div class="container d-flex">
-<form @submit.prevent="state.search_category()">
+<form @submit.prevent="state.filter()">
 <label for="category">Select a category</label>
 <select class="form-select m-3" aria-label="Default select example" v-model="state.filter_category" >    
   <option v-for="category in state.categories" :value="category.id">{{category.name}}</option> 
@@ -46,15 +46,20 @@ state.call_api_categories(categories_url)
 </select>
 
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="" id="In_evidence" v-model="state.chekced_evidence">
+  <input class="form-check-input" type="checkbox" value="state.checked_evidence" id="In_evidence" v-model="state.checked_evidence">
   <label class="form-check-label" for="In_evidence">
    In evidence
   </label>
 </div>
 
-
 <button type="submit" class="btn btn-outline-primary" >Search</button>
 </form>
+
+
+
+
+
+
 
 
 </div>
@@ -64,37 +69,41 @@ state.call_api_categories(categories_url)
 
 <div class="container">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-    <div class="col" v-for="photo in state.photos">
-      <div class="card">
+    <div class="col"  v-for="photo in state.photos">
+      <div class="card" min-heigth= "500">
 
-<template v-if="photo.image && photo.image.startsWith('https://')" >
+        <template v-if="photo.image && photo.image.startsWith('https://')" >
   <img class="card-img-top" :src="photo.image" alt="Photo image">  
-</template>
-<template v-else-if="photo.image && photo.image.startsWith('uploads')">
-  <img class="card-img-top" :src="state.base_api_url+'storage/'+ photo.image" alt="Photo image">  
-</template>
+        </template>
+        <template v-else-if="photo.image && photo.image.startsWith('uploads')">
+          <img class="card-img-top" :src="state.base_api_url+'storage/'+ photo.image" alt="Photo image">  
+        </template>
 
-
-<div class="card-body">
+        <div class="card-body">
     <h5 class="card-title">{{photo.title}}</h5>
     <p class="card-text">{{photo.description}}</p>
+    <div v-if="photo.in_evidence == 1" >
+      <i class="fa-solid fa-bookmark"></i>
+    </div>
     <a href="#" class="btn btn-primary">View single photo</a>
-</div>
+        </div>
   
       </div>
-
-
     </div>
   </div>
 </div>
 
 
 </section>
-
-
-
 </template>
 
 <style >
-
+.card{
+  position: relative;
+}
+i{
+  position: absolute;
+  top:10px;
+  right: 10px;
+}
 </style>
