@@ -10,7 +10,8 @@ export default{
       categories_endpoint: 'api/categories',
       photos: '',
       categories: '',
-      filter_category: ''
+      filter_category: '',
+      chekced_evidence: 0
     }
  },
 
@@ -40,7 +41,7 @@ console.log(this.categories);
 },
 search_category(){
   const photos_url = this.base_api_url+this.photos_endpoint
-  const photos_filtered_categories_url = this.base_api_url+this.photos_endpoint+`?search=`+this.filter_category
+  const photos_filtered_categories_url = this.base_api_url+this.photos_endpoint+`?search=`+this.filter_category+`?search=`+this.se
   if (this.filter_category == "No category selected") {
     this.call_api_photos(photos_url)
   } else{
@@ -62,17 +63,26 @@ this.call_api_categories(categories_url)
 <template>
   <h1>Share your fotoalbum</h1>
 
- 
+<div class="container d-flex">
 <form @submit.prevent="search_category()">
 <label for="category">Select a category</label>
 <select class="form-select m-3" aria-label="Default select example" v-model="filter_category" >    
   <option v-for="category in categories" :value="category.id">{{category.name}}</option> 
   <option selected>No category selected</option>  
 </select>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="" id="In_evidence" v-model="chekced_evidence">
+  <label class="form-check-label" for="In_evidence">
+   In evidence
+  </label>
+</div>
+
+
 <button type="submit" class="btn btn-outline-primary" >Search</button>
 </form>
 
-
+</div>
 
  <section class="posts py-5" v-if="photos">
   
