@@ -2,11 +2,14 @@
 import axios from 'axios';
 import { state } from './state.js'
 import Loader from './components/Loader.vue';
+import Modal_view from './components/Modal_view.vue';
 
 export default{
   name: 'App',
+  
   components: {
-    Loader
+    Loader,
+    Modal_view,
   },
 
 data() {
@@ -38,7 +41,7 @@ state.call_api_categories(categories_url)
 
 
 <div class="container d-flex">
-<form @submit.prevent="state.filter()">
+<!-- <form @submit.prevent="state.filter()">
 <label for="category">Select a category</label>
 <select class="form-select m-3" aria-label="Default select example" v-model="state.filter_category" >    
   <option v-for="category in state.categories" :value="category.id">{{category.name}}</option> 
@@ -53,15 +56,7 @@ state.call_api_categories(categories_url)
 </div>
 
 <button type="submit" class="btn btn-outline-primary" >Search</button>
-</form>
-
-
-
-
-
-
-
-
+</form> -->
 </div>
 
  <section class="posts py-5" v-if="state.photos">
@@ -84,10 +79,16 @@ state.call_api_categories(categories_url)
     <p class="card-text">{{photo.description}}</p>
     <div v-if="photo.in_evidence == 1" >
       <i class="fa-solid fa-bookmark"></i>
-    </div>
-    <a href="#" class="btn btn-primary">View single photo</a>
+    </div>    
         </div>
   
+<div class="card-footer">
+  <Modal_view :photo="photo"></Modal_view>
+
+  
+</div>
+
+
       </div>
     </div>
   </div>
