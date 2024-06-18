@@ -16,8 +16,7 @@ export const state = reactive({
             .get(url)
             .then(response => {
                 console.log(response);
-                this.photos = response.data.results.data
-                console.log(this.photos.data);
+                this.photos = response.data.results
             })
             .catch(err => {
                 console.error(err)
@@ -36,8 +35,10 @@ export const state = reactive({
             })
     },
     filter() {
+        this.photos = ''
+        this.cheked_evidence = false;
         const photos_url = this.base_api_url + this.photos_endpoint
-        const photos_filtered_url = this.base_api_url + this.photos_endpoint + `?search=` + this.filter_category + `?search=` + this.checked_evidence
+        const photos_filtered_url = this.base_api_url + this.photos_endpoint + `?search=${this.filter_category}&search=${this.checked_evidence}`
         if (this.filter_category == "No category selected" && this.check_evidence == false) {
             this.call_api_photos(photos_url)
         } else {
@@ -45,14 +46,5 @@ export const state = reactive({
         }
         console.log(photos_filtered_url);
     },
-    check_evidence() {
-        const photos_url = this.base_api_url + this.photos_endpoint
-        const photos_checked_evidence_url = this.base_api_url + this.photos_endpoint + `?search=` + this.checked_evidence
-        if (this.check_evidence = 0) {
-            this.call_api_photos(photos_checked_evidence_url)
-        } else {
-            this.call_api_photos(photos_url)
-        }
-        console.log(photos_checked_evidence_url);
-    }
+
 })

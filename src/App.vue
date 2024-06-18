@@ -41,7 +41,7 @@ state.call_api_categories(categories_url)
 
 
 <div class="container d-flex">
-<!-- <form @submit.prevent="state.filter()">
+<form @submit.prevent="state.filter()">
 <label for="category">Select a category</label>
 <select class="form-select m-3" aria-label="Default select example" v-model="state.filter_category" >    
   <option v-for="category in state.categories" :value="category.id">{{category.name}}</option> 
@@ -49,14 +49,14 @@ state.call_api_categories(categories_url)
 </select>
 
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" value="state.checked_evidence" id="In_evidence" v-model="state.checked_evidence">
+  <input class="form-check-input" type="checkbox" value=" 'checked'? 1 : 0" id="In_evidence" v-model="state.checked_evidence">
   <label class="form-check-label" for="In_evidence">
    In evidence
   </label>
 </div>
 
 <button type="submit" class="btn btn-outline-primary" >Search</button>
-</form> -->
+</form>
 </div>
 
  <section class="posts py-5" v-if="state.photos">
@@ -64,7 +64,7 @@ state.call_api_categories(categories_url)
 
 <div class="container">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-    <div class="col"  v-for="photo in state.photos">
+    <div class="col"  v-for="photo in state.photos.data">
       <div class="card" min-heigth= "500">
 
         <template v-if="photo.image && photo.image.startsWith('https://')" >
@@ -99,6 +99,7 @@ state.call_api_categories(categories_url)
 </template>
 
 <style >
+
 .card{
   position: relative;
 }
