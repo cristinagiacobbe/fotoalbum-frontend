@@ -38,8 +38,10 @@ export const state = reactive({
         this.photos = ''
         this.cheked_evidence = false;
         const photos_url = this.base_api_url + this.photos_endpoint
-        const photos_filtered_url = this.base_api_url + this.photos_endpoint + `?search=${this.filter_category}&search=${this.checked_evidence}`
-        if (this.filter_category == "No category selected" && this.check_evidence == false) {
+        /* const photos_filtered_url = this.base_api_url + this.photos_endpoint + `?search=${this.filter_category}&search=${this.checked_evidence}` */
+        const photos_filtered_url = this.base_api_url + this.photos_endpoint + `?search=${this.filter_category}`
+        /* if (this.filter_category == "No category selected" && this.check_evidence == false) { */
+        if (this.filter_category == "No category selected") {
             this.call_api_photos(photos_url)
         } else {
             this.call_api_photos(photos_filtered_url)
